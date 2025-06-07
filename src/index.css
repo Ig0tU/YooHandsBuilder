@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .yoo-button {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background;
+  }
+  
+  .yoo-button-primary {
+    @apply bg-yoo-primary text-white hover:bg-yoo-primary/90;
+  }
+  
+  .yoo-button-secondary {
+    @apply bg-yoo-secondary text-white hover:bg-yoo-secondary/90;
+  }
+  
+  .yoo-card {
+    @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+  }
+  
+  .yoo-input {
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  
+  .yoo-panel {
+    @apply bg-white border-r border-yoo-border shadow-sm;
+  }
+  
+  .yoo-toolbar {
+    @apply bg-yoo-light border-b border-yoo-border px-4 py-3 flex items-center justify-between;
+  }
+  
+  .yoo-sidebar {
+    @apply w-80 bg-white border-r border-yoo-border overflow-y-auto;
+  }
+  
+  .yoo-canvas {
+    @apply flex-1 bg-gray-50 overflow-auto;
+  }
+  
+  .yoo-element {
+    @apply border-2 border-transparent hover:border-yoo-accent transition-colors cursor-pointer;
+  }
+  
+  .yoo-element.selected {
+    @apply border-yoo-primary;
+  }
+  
+  .yoo-properties {
+    @apply w-80 bg-white border-l border-yoo-border overflow-y-auto;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Monaco Editor custom styles */
+.monaco-editor {
+  border-radius: 8px;
+}
+
+/* Animation utilities */
+.animate-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}

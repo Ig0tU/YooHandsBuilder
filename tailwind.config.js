@@ -7,6 +7,15 @@ export default {
   theme: {
     extend: {
       colors: {
+        background: '#ffffff',
+        foreground: '#1e293b',
+        card: '#ffffff',
+        'card-foreground': '#1e293b',
+        muted: '#64748b',
+        'muted-foreground': '#64748b',
+        border: '#e2e8f0',
+        input: '#e2e8f0',
+        ring: '#1e40af',
         yoo: {
           primary: '#1e40af',
           secondary: '#3b82f6',

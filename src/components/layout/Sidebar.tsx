@@ -13,6 +13,30 @@ export function Sidebar() {
     { id: 'settings', label: 'Settings', icon: '⚙️' }
   ] as const
   
+  if (state.ui.sidebarCollapsed) {
+    return (
+      <div className="w-12 bg-white border-r border-gray-200 flex flex-col items-center py-4 space-y-4">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => {
+              dispatch({ type: 'SET_ACTIVE_TAB', payload: tab.id })
+              dispatch({ type: 'TOGGLE_SIDEBAR' })
+            }}
+            className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${
+              state.activeTab === tab.id
+                ? 'bg-yoo-primary text-white'
+                : 'text-gray-600 hover:bg-gray-100'
+            }`}
+            title={tab.label}
+          >
+            <span className="text-sm">{tab.icon}</span>
+          </button>
+        ))}
+      </div>
+    )
+  }
+  
   return (
     <div className="yoo-sidebar">
       <div className="border-b border-gray-200">

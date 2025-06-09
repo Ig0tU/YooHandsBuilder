@@ -21,12 +21,35 @@ export function DraggableElement({ type, name, icon, description }: DraggableEle
     }
     
     dispatch({ type: 'ADD_ELEMENT', payload: newElement })
+    dispatch({ type: 'SELECT_ELEMENT', payload: newElement.id })
+  }
+  
+  const handleDragStart = (e: React.DragEvent) => {
+    const newElement = {
+      id: `${type}-${Date.now()}`,
+      type,
+      name,
+      properties: getDefaultProperties(type),
+      children: []
+    }
+    
+    e.dataTransfer.setData('application/json', JSON.stringify(newElement))
+    e.dataTransfer.effectAllowed = 'copy'
+    
+    dispatch({ type: 'START_DRAG', payload: newElement })
+  }
+  
+  const handleDragEnd = () => {
+    dispatch({ type: 'END_DRAG' })
   }
   
   return (
     <button
       onClick={handleAddElement}
-      className="group p-3 bg-white border border-gray-200 rounded-lg hover:border-yoo-primary hover:shadow-md transition-all duration-200 text-left"
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      draggable
+      className="group p-3 bg-white border border-gray-200 rounded-lg hover:border-yoo-primary hover:shadow-md transition-all duration-200 text-left cursor-grab active:cursor-grabbing"
       title={description}
     >
       <div className="flex items-center space-x-2 mb-1">

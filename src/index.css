@@ -4,11 +4,11 @@
 
 @layer base {
   * {
-    @apply border-yoo-border;
+    @apply border-gray-200;
   }
   
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-gray-50 text-gray-900 font-sans;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
   
@@ -31,23 +31,23 @@
   }
   
   .yoo-card {
-    @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+    @apply rounded-lg border bg-white text-gray-900 shadow-sm;
   }
   
   .yoo-input {
-    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+    @apply flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yoo-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
   }
   
   .yoo-panel {
-    @apply bg-white border-r border-yoo-border shadow-sm;
+    @apply bg-white border-r border-gray-200 shadow-sm;
   }
   
   .yoo-toolbar {
-    @apply bg-yoo-light border-b border-yoo-border px-4 py-3 flex items-center justify-between;
+    @apply bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between;
   }
   
   .yoo-sidebar {
-    @apply w-80 bg-white border-r border-yoo-border overflow-y-auto;
+    @apply w-80 bg-white border-r border-gray-200 overflow-y-auto;
   }
   
   .yoo-canvas {
@@ -55,15 +55,23 @@
   }
   
   .yoo-element {
-    @apply border-2 border-transparent hover:border-yoo-accent transition-colors cursor-pointer;
+    @apply border-2 border-transparent hover:border-yoo-accent transition-all duration-200 cursor-pointer relative;
   }
   
   .yoo-element.selected {
-    @apply border-yoo-primary;
+    @apply border-yoo-primary ring-2 ring-yoo-primary ring-opacity-20;
   }
   
   .yoo-properties {
-    @apply w-80 bg-white border-l border-yoo-border overflow-y-auto;
+    @apply w-80 bg-white border-l border-gray-200 overflow-y-auto;
+  }
+  
+  /* Grid background */
+  .bg-grid {
+    background-image: 
+      linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
   }
 }
 
@@ -98,4 +106,113 @@
 
 .animate-slide-up {
   animation: slideUp 0.3s ease-out;
+}
+
+/* Drag and drop styles */
+.dragging {
+  opacity: 0.5;
+  transform: rotate(5deg);
+}
+
+.drop-zone-active {
+  background-color: rgba(59, 130, 246, 0.05);
+  border: 2px dashed #3b82f6;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .yoo-sidebar {
+    @apply w-full;
+  }
+  
+  .yoo-properties {
+    @apply w-full;
+  }
+}
+
+/* Keyboard shortcuts overlay */
+.shortcuts-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+/* Element hover effects */
+.yoo-element:hover::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px solid #3b82f6;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.yoo-element.selected::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px solid #1e40af;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* Loading states */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Focus states for accessibility */
+.yoo-button:focus-visible,
+.yoo-input:focus-visible,
+button:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .yoo-element {
+    border-width: 3px;
+  }
+  
+  .yoo-element.selected {
+    border-width: 4px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
